@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drop-down Select App</title>
+  <style>
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Drop-down Select App</h1>
+  
+  <label for="argument">Operator:</label>
+  <select id="operator">
+    <option value="constant">Constant</option>
+    <option value="argument">Argument</option>
+    <option value="or">OR</option>  
+    <option value="number">number</option>
+
+  </select>
+  
+  <button id="addOperator">Add Operator</button>
+  
+  <h2>Operators:</h2>
+  <ul id="operatorList"></ul>
+  
+  <h2>Result:</h2>
+  <p id="result"></p>
+  
+  <script>
+    
+    const operators = [];
+    document.getElementById('addOperator').addEventListener('click', function() {
+      const operator = document.getElementById('operator').value;
+      
+      operators.push(operator);
+      
+      
+      updateOperatorList();
+      
+      
+      updateResult();
+    });
+    
+    
+    function updateOperatorList() {
+      const operatorList = document.getElementById('operatorList');
+      operatorList.innerHTML = ''; 
+  
+      operators.forEach(function(op, index) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `Operator ${index + 1}: ${op}`;
+        operatorList.appendChild(listItem);
+      });
+    }
+    
+  
+    function updateResult() {
+      let result = true;
+      
+      operators.forEach(function(op) {
+        if (op === 'constant') {
+          result = result && true;
+        } else if (op === 'number') {
+      
+          result = result && false;
+        } else if (op === 'or') {
+
+          result = result || true;
+        }
+      });
+      
+
+      document.getElementById('result').textContent = result.toString();
+    }
+  </script>
+</body>
+</html
